@@ -107,6 +107,32 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        GameObject otherGO = other.gameObject;
+        if (other.gameObject.CompareTag("ProjectilePhaser"))
+        {
+            Projectile p = otherGO.GetComponent<Projectile>();
+            if(!bndCheck.isOnScreen)
+            {
+                Destroy(otherGO);
+            }
+            Destroy(other.gameObject);
+            ShowDamage();
+            health -= Main.GetWeaponDefinition(p.type).damageOnHit;
+            if(health <= 0)
+            {
+                if(!notifiedOfDestruction)
+                {
+                    Main.S.ShipDestroyed(this);
+                }
+                notifiedOfDestruction = true;
+                Destroy(this.gameObject);
+            }
+            Destroy(other.gameObject);
+        }
+    }
+
     void ShowDamage()
     {
         foreach (Material m in materials)
