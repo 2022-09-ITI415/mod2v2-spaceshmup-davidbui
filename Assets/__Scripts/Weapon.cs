@@ -34,7 +34,7 @@ public class WeaponDefinition
     public float damageOnHit = 0; // Amount of damage caused
     public float continuousDamage = 0; // Damage per second (Laser)
     public float delayBetweenShots = 0;
-    public float velocity = 50; // Speed of projectiles
+    public float velocity = 20; // Speed of projectiles
 }
 public class Weapon : MonoBehaviour {
     static public Transform PROJECTILE_ANCHOR;
@@ -140,8 +140,12 @@ public class Weapon : MonoBehaviour {
                 break;
 
             case WeaponType.laser:
-                p = MakeProjectile();
+                p = MakeLaser();
                 p.rigid.velocity = vel;
+                break;
+
+            case WeaponType.phaser:
+                p = MakeProjectilePhaser();
                 break;
         }
     }
@@ -152,6 +156,43 @@ public class Weapon : MonoBehaviour {
         if(transform.parent.gameObject.tag == "Hero")
         {
             go.tag = "ProjectileHero";
+            go.layer = LayerMask.NameToLayer("ProjectileHero");
+        }
+        else
+        {
+            go.tag = "ProjectileEnemy";
+            go.layer = LayerMask.NameToLayer("ProjectileEnemy");
+        }
+        go.transform.position = collar.transform.position;
+        go.transform.SetParent(PROJECTILE_ANCHOR, true);
+        Projectile p = go.GetComponent<Projectile>();
+        p.type = type;
+        lastShotTime = Time.time;
+        return p;
+    }
+
+    public Projectile MakeLaser()
+    {
+        GameObject go = Instantiate<GameObject>(def.projectilePrefab);
+        if (transform.parent.gameObject.tag == "Hero")
+        {
+            go.tag = "ProjectileEnemy";
+            go.layer = LayerMask.NameToLayer("ProjectileEnemy");
+        }
+        go.transform.position = collar.transform.position + new Vector3(0.0f, 15.0f, 0.0f);
+        go.transform.SetParent(PROJECTILE_ANCHOR, true);
+        Projectile p = go.GetComponent<Projectile>();
+        p.type = type;
+        lastShotTime = Time.time;
+        return p;
+    }
+
+    public Projectile MakeProjectilePhaser()
+    {
+        GameObject go = Instantiate<GameObject>(def.projectilePrefab);
+        if (transform.parent.gameObject.tag == "Hero")
+        {
+            go.tag = "ProjectilePhaser";
             go.layer = LayerMask.NameToLayer("ProjectileHero");
         }
         else
