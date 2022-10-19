@@ -34,7 +34,7 @@ public class WeaponDefinition
     public float damageOnHit = 0; // Amount of damage caused
     public float continuousDamage = 0; // Damage per second (Laser)
     public float delayBetweenShots = 0;
-    public float velocity = 20; // Speed of projectiles
+    public float velocity = 50; // Speed of projectiles
 }
 public class Weapon : MonoBehaviour {
     static public Transform PROJECTILE_ANCHOR;
@@ -137,6 +137,11 @@ public class Weapon : MonoBehaviour {
                 p = MakeProjectile(); // Make another Projectile
                 p.transform.rotation = Quaternion.AngleAxis(-5, Vector3.back);
                 p.rigid.velocity = p.transform.rotation * vel;
+                break;
+
+            case WeaponType.laser:
+                p = MakeProjectile();
+                p.rigid.velocity = vel;
                 break;
         }
     }
