@@ -143,9 +143,9 @@ public class Weapon : MonoBehaviour {
                 p = MakeProjectile();
                 p.rigid.velocity = vel;
                 p = MakeProjectile();
-                p.rigid.velocity = new Vector3(0,60,0);
+                p.rigid.velocity = new Vector3(0, 40, 0); 
                 p = MakeProjectile();
-                p.rigid.velocity = new Vector3(0,30,0);
+                p.rigid.velocity = new Vector3(0, 20, 0);
                 break;
 
             case WeaponType.phaser:
