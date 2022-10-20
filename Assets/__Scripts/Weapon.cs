@@ -96,6 +96,16 @@ public class Weapon : MonoBehaviour {
         }
         def = Main.GetWeaponDefinition(_type);
         collarRend.material.color = def.color;
+        if (wt == WeaponType.blaster)
+        {
+            def.damageOnHit = 1;
+            def.delayBetweenShots = 0.5f;
+        }
+        else if (wt == WeaponType.spread);
+        {
+            def.damageOnHit = 5;
+            def.delayBetweenShots = 2f;
+        }
         lastShotTime = 0; // You can fire immediately after _type is set.
     }
 
@@ -149,7 +159,7 @@ public class Weapon : MonoBehaviour {
                 break;
 
             case WeaponType.phaser:
-                p = MakeProjectilePhaser();
+                p = MakeProjectile(); //not done yet 
                 break;
         }
     }
@@ -160,27 +170,6 @@ public class Weapon : MonoBehaviour {
         if(transform.parent.gameObject.tag == "Hero")
         {
             go.tag = "ProjectileHero";
-            go.layer = LayerMask.NameToLayer("ProjectileHero");
-        }
-        else
-        {
-            go.tag = "ProjectileEnemy";
-            go.layer = LayerMask.NameToLayer("ProjectileEnemy");
-        }
-        go.transform.position = collar.transform.position;
-        go.transform.SetParent(PROJECTILE_ANCHOR, true);
-        Projectile p = go.GetComponent<Projectile>();
-        p.type = type;
-        lastShotTime = Time.time;
-        return p;
-    }
-
-    public Projectile MakeProjectilePhaser()
-    {
-        GameObject go = Instantiate<GameObject>(def.projectilePrefab);
-        if (transform.parent.gameObject.tag == "Hero")
-        {
-            go.tag = "ProjectilePhaser";
             go.layer = LayerMask.NameToLayer("ProjectileHero");
         }
         else
