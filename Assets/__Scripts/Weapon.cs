@@ -149,11 +149,13 @@ public class Weapon : MonoBehaviour {
                 p.rigid.velocity = vel;
                 break;
 
-            //WILL COME BACK TO
-            //case WeaponType.phaser: 
-                //p = MakeProjectile(); // want to make them move left and right
-                //p.transform.position += Mathf.Pow(2, p/2) * Time.deltaTime;
-                //break;
+            case WeaponType.phaser: 
+                p = MakeProjectile();// want to make them move left and right
+                //p.transform.position = p.transform.position + new Vector3(Mathf.Sin(Time.time), 0.0f, 2.0f);
+                //p.rigid.velocity = p.transform.position * vel;
+                //p = MakeProjectile();
+                //p.transform.position += Mathf.Pow(-2, Vector3/2);
+                break;
         }
     }
 
