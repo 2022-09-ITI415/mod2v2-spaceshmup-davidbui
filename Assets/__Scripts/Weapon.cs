@@ -147,15 +147,13 @@ public class Weapon : MonoBehaviour {
             case WeaponType.laser:
                 p = MakeProjectile();
                 p.rigid.velocity = vel;
-                p = MakeProjectile();
-                p.rigid.velocity = new Vector3(0, 40, 0); 
-                p = MakeProjectile();
-                p.rigid.velocity = new Vector3(0, 20, 0);
                 break;
 
-            case WeaponType.phaser:
-                p = MakeProjectile(); //not done yet 
-                break;
+            //WILL COME BACK TO
+            //case WeaponType.phaser: 
+                //p = MakeProjectile(); // want to make them move left and right
+                //p.transform.position += Mathf.Pow(2, p/2) * Time.deltaTime;
+                //break;
         }
     }
 
