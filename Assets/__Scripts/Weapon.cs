@@ -96,14 +96,9 @@ public class Weapon : MonoBehaviour {
         }
         def = Main.GetWeaponDefinition(_type);
         collarRend.material.color = def.color;
-        if (wt == WeaponType.blaster)
+        if (wt == WeaponType.spread)
         {
-            def.damageOnHit = 1;
-            def.delayBetweenShots = 0.5f;
-        }
-        else if (wt == WeaponType.spread);
-        {
-            def.damageOnHit = 5;
+            def.damageOnHit = 4;
             def.delayBetweenShots = 2f;
         }
         lastShotTime = 0; // You can fire immediately after _type is set.
