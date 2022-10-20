@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -140,8 +140,12 @@ public class Weapon : MonoBehaviour {
                 break;
 
             case WeaponType.laser:
-                p = MakeLaser();
+                p = MakeProjectile();
                 p.rigid.velocity = vel;
+                p = MakeProjectile();
+                p.rigid.velocity = new Vector3(0,60,0);
+                p = MakeProjectile();
+                p.rigid.velocity = new Vector3(0,30,0);
                 break;
 
             case WeaponType.phaser:
@@ -164,22 +168,6 @@ public class Weapon : MonoBehaviour {
             go.layer = LayerMask.NameToLayer("ProjectileEnemy");
         }
         go.transform.position = collar.transform.position;
-        go.transform.SetParent(PROJECTILE_ANCHOR, true);
-        Projectile p = go.GetComponent<Projectile>();
-        p.type = type;
-        lastShotTime = Time.time;
-        return p;
-    }
-
-    public Projectile MakeLaser()
-    {
-        GameObject go = Instantiate<GameObject>(def.projectilePrefab);
-        if (transform.parent.gameObject.tag == "Hero")
-        {
-            go.tag = "ProjectileEnemy";
-            go.layer = LayerMask.NameToLayer("ProjectileEnemy");
-        }
-        go.transform.position = collar.transform.position + new Vector3(0.0f, 15.0f, 0.0f);
         go.transform.SetParent(PROJECTILE_ANCHOR, true);
         Projectile p = go.GetComponent<Projectile>();
         p.type = type;
