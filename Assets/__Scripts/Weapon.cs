@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -96,6 +96,11 @@ public class Weapon : MonoBehaviour {
         }
         def = Main.GetWeaponDefinition(_type);
         collarRend.material.color = def.color;
+        if (wt == WeaponType.spread)
+        {
+            def.damageOnHit = 4;
+            def.delayBetweenShots = 2f;
+        }
         lastShotTime = 0; // You can fire immediately after _type is set.
     }
 
@@ -131,6 +136,28 @@ public class Weapon : MonoBehaviour {
                 p = MakeProjectile(); // Make left Projectile
                 p.transform.rotation = Quaternion.AngleAxis(-10, Vector3.back);
                 p.rigid.velocity = p.transform.rotation * vel;
+                p = MakeProjectile(); // Make another Projectile
+                p.transform.rotation = Quaternion.AngleAxis(5, Vector3.back);
+                p.rigid.velocity = p.transform.rotation * vel;
+                p = MakeProjectile(); // Make another Projectile
+                p.transform.rotation = Quaternion.AngleAxis(-5, Vector3.back);
+                p.rigid.velocity = p.transform.rotation * vel;
+                break;
+
+            case WeaponType.laser:
+                p = MakeProjectile();
+                p.rigid.velocity = vel;
+                break;
+
+            case WeaponType.phaser: 
+                p = MakeProjectile();
+                //p.waveFrequency = 2;
+                //p.waveWidth = 4;
+                //p.waveRotY = 45;
+                //p.transform.rotation = Quaternion.Euler(rot);
+                //p.rigid.velocity = p.transform.position * vel;
+                //p = MakeProjectile();
+                //p.transform.position += Mathf.Pow(-2, Vector3/2);
                 break;
         }
     }
