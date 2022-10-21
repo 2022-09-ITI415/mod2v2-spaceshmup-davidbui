@@ -150,8 +150,11 @@ public class Weapon : MonoBehaviour {
                 break;
 
             case WeaponType.phaser: 
-                p = MakeProjectile();// want to make them move left and right
-                //p.transform.position = p.transform.position + new Vector3(Mathf.Sin(Time.time), 0.0f, 2.0f);
+                p = MakeProjectile();
+                //p.waveFrequency = 2;
+                //p.waveWidth = 4;
+                //p.waveRotY = 45;
+                //p.transform.rotation = Quaternion.Euler(rot);
                 //p.rigid.velocity = p.transform.position * vel;
                 //p = MakeProjectile();
                 //p.transform.position += Mathf.Pow(-2, Vector3/2);
